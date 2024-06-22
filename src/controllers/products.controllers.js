@@ -44,3 +44,36 @@ export const createProduct = async (req,res) => {
     res.status(500).json({success:false,message:err.message})
   }
 }
+
+export const updateProduct = async (req,res) => {
+  const {productThumbnail, productTitle,productDescription, productCost, onOffer} = req.body;
+  const id = req.params.id;
+  try{
+    let updateoperation;
+    if(productThumbnail){
+      updateoperation = await pool.query("UPDATE products SET productThumbnail=$1 WHERE id=$2",[productThumbnail, id],)
+    }
+    if(productTitle){
+      updateoperation = await pool.query("UPDATE products SET productTitle=$1 WHERE id=$2",[productTitle,id],)
+    }
+    if(productDescription){
+      updateoperation = await pool.query("UPDATE products SET productDescription=$1 WHERE id=$2",[productDescription,id],)
+    }
+    if(productCost){
+      updateoperation = await pool.query("UPDATE products SET productCost=$1 WHERE id=$2",[productCost,id],)
+    }
+    if(onOffer){
+      updateoperation = await pool.query("UPDATE products SET onOffer=$1 WHERE id=$2",[onOffer,id],)
+    }
+
+    if(updateoperation.rowCount===1){
+      res.status(200).json({success:true,message:"Product updated successfully"})
+    }
+    else{
+      res.status(400).json({success:false,message:"Invalid product"})
+    }
+  }
+  catch(err){
+    res.status(500).json({success:false, message:err.message})
+  }
+}
