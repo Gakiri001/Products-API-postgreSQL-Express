@@ -1,11 +1,10 @@
 import {Router} from "express"
-import pool from "../db.config.js";
+// import pool from "../db.config.js";
+import { getALLProducts } from "../controllers/products.controllers.js"; 
 
 const router = Router();
 
-router.get("/",(req,res) => {
-  res.send("Get all the products")
-})
+router.get("/", getALLProducts )
 
 router.get("/:id",(req,res) => {
   res.send("Gets a single product")
