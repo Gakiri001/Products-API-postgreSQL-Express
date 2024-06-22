@@ -1,14 +1,14 @@
-import express from "express"
-import productsrouter from "./route/products.route.js"
+import express from "express";
+import productsrouter from "./route/products.route.js";
 
-const app = express()
+const app = express();
 app.use(express.json());
-app.use("/products", productsrouter)
+app.use("/products", productsrouter);
 
 // app.get("/",(req,res) => {
 //   res.send("hello Gathee")
 // })
 
-app.listen(3000,() => {
-  console.log("server on port 3000")
-})
+app.listen(3000, () => {
+  console.log("server on port 3000");
+});
