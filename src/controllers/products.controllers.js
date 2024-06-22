@@ -77,3 +77,19 @@ export const updateProduct = async (req,res) => {
     res.status(500).json({success:false, message:err.message})
   }
 }
+
+export const deleteProduct = async (req,res) => {
+  const id = req.params.id;
+  try{
+    const deleteOperation = await pool.query("DELETE FROM products WHERE id=$1",[id],)
+    if(deleteOperation.rowCount===1){
+      res.status(200).json({success:true,message:"Product deleted successfully"})
+    }
+    else{
+      res.status(400).json({success:false, message:"invalid user"})
+    }
+  }
+  catch(err){
+    res.status(500).json({success:false, message:err.message})
+  }
+}
