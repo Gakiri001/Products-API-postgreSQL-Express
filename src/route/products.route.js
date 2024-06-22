@@ -1,6 +1,8 @@
 import {Router} from "express"
 // import pool from "../db.config.js";
-import { getALLProducts,getSingleProduct } from "../controllers/products.controllers.js"; 
+import { getALLProducts,getSingleProduct,createProduct } from "../controllers/products.controllers.js";
+
+import { validateProduct } from "../middleware/products.middleware.js";
 
 const router = Router();
 
@@ -8,9 +10,7 @@ router.get("/", getALLProducts )
 
 router.get("/:id",getSingleProduct)
 
-router.post("/",(req,res) => {
-  res.send("Adds/Creates a new product to the database")
-})
+router.post("/",validateProduct,createProduct)
 
 router.patch("/:id",(req,res) => {
   res.send("Updates a products")
